@@ -1,4 +1,4 @@
--Database MySql,AWS Amazon RDS
+-Database MySql,AWS Amazon RDS 
 	Schema-> customer
 		username       varchar(15) pk
 		password       varchar(20)
@@ -7,6 +7,7 @@
 		reference_code varchar(12)
 		Member_type    varchar(20)
 		salary         int(11)
+	detail connection in application.properties
 -Server AWS Amazon EC2 (Amazon Linux AMI 2018.03.0 (HVM), SSD Volume Type)
 -Api authentication with JWT
 	authentication-> http://ec2-13-58-136-208.us-east-2.compute.amazonaws.com:8080/AYCAP/authenticate
