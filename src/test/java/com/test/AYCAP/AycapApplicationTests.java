@@ -44,7 +44,7 @@ public class AycapApplicationTests {
 				"Platinum",
 				57000);
 		when(repository.findByUsername("famtest")).thenReturn(customer);
-		assertEquals(customer, service.getUser("famtest"));
+		assertEquals(customer, service.getCustomer("famtest"));
 	}
 
 	//	o Platinum (salary > 50,000 baht)

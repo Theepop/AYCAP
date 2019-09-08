@@ -25,11 +25,11 @@ public class CustomerService {
     private final String GOLD = "Gold";
     private final String SILVER = "Silver";
 
-    public Customer getUser(String username) {
+    public Customer getCustomer(String username) {
         return customerRepository.findByUsername(username);
     }
 
-    public Iterable<Customer> getAllUsers() {
+    public Iterable<Customer> getAllCustomers() {
         return customerRepository.findAll();
     }
 
@@ -48,7 +48,10 @@ public class CustomerService {
                 return ERROR;
         };
         try {
-            referenceCode += customer.getPhone().substring(6);
+            String lastPhone=customer.getPhone().substring(6);
+            if(lastPhone.length()!=4)
+                throw new Exception("phone number is wrong length");
+            referenceCode += lastPhone;
             customer.setReferenceCode(referenceCode);
             memberType = functional.getMemberTypeBySalary(customer.getSalary());
             if (ERROR.equals(memberType))

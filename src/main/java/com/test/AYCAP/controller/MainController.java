@@ -4,7 +4,6 @@ package com.test.AYCAP.controller;
 import com.test.AYCAP.Entity.Customer;
 import com.test.AYCAP.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,13 +23,13 @@ public class MainController {
     @GetMapping(path = "/all")
     public @ResponseBody
     Iterable<Customer> getAllUsers() {
-        return customerService.getAllUsers();
+        return customerService.getAllCustomers();
     }
 
     @GetMapping(path = "/{username}")
     public @ResponseBody
     Customer getUser(@PathVariable String username) {
-        return customerService.getUser(username);
+        return customerService.getCustomer(username);
     }
 
 

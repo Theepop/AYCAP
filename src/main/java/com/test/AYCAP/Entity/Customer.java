@@ -21,6 +21,8 @@ public class Customer {
     @Column(name="salary")
     private int salary;
 
+    public Customer(){}
+
     public Customer(String username, String address, String phone, String referenceCode, String memberType, int salary) {
         this.username = username;
         this.address=address;
