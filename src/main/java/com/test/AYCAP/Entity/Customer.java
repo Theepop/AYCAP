@@ -6,7 +6,6 @@ import javax.persistence.*;
 @Table(name = "customer")
 public class Customer {
     @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="username")
     private String username;
     @Column(name="password")
@@ -21,6 +20,15 @@ public class Customer {
     private String memberType;
     @Column(name="salary")
     private int salary;
+
+    public Customer(String username, String address, String phone, String referenceCode, String memberType, int salary) {
+        this.username = username;
+        this.address=address;
+        this.phone=phone;
+        this.referenceCode=referenceCode;
+        this.memberType=memberType;
+        this.salary=salary;
+    }
 
     public String getUsername() {
         return username;

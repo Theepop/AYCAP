@@ -1,66 +1,37 @@
 package com.test.AYCAP.controller;
 
 
-import com.test.AYCAP.repository.CustomerRepository;
 import com.test.AYCAP.Entity.Customer;
+import com.test.AYCAP.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Locale;
-
 @Controller
-@RequestMapping(path="/rest")
+@RequestMapping(path = "/rest")
 public class MainController {
     @Autowired
-    CustomerRepository customerRepository;
+    private CustomerService customerService;
 
-    private final String PLATINUM = "Platinum";
-    private final String GOLD = "Gold";
-    private final String SILVER = "Silver";
 
     @PostMapping(path = "/add")
-    public @ResponseBody String addNewCustomer(@RequestBody Customer c
-
-    ){
-        int salaryI=0;
-        String memberType="";
-        String referenceCode = DateTimeFormatter.ofPattern("yyyyMMdd", Locale.ENGLISH).format(LocalDateTime.now());
-
-        Customer customer = new Customer();
-        try{
-            customer.setUsername(c.getUsername());
-            customer.setPassword(c.getPassword());
-            customer.setAddress(c.getAddress());
-            customer.setPhone(c.getPhone());
-
-            referenceCode+=c.getPhone().substring(6);
-            customer.setReferenceCode(referenceCode);
-            salaryI= c.getSalary();
-            if(salaryI>50000)
-                memberType=PLATINUM;
-            else if(salaryI>=30000&&salaryI<=50000)
-                memberType=GOLD;
-            else if (salaryI>=15000&&salaryI<30000)
-                memberType=SILVER;
-            else
-                return "error";
-
-
-            customer.setMemberType(memberType);
-            customer.setSalary(salaryI);
-            customerRepository.save(customer);
-            return "save";
-        }catch (Exception e){
-            return "error";
-        }
-
+    @ResponseBody
+    public Customer addNewCustomer(@RequestBody Customer c ) throws Exception   {
+        return customerService.addNewCustomer(c);
     }
-    @GetMapping(path="/all")
-    public @ResponseBody Iterable<Customer> getAllUsers() {
-        return customerRepository.findAll();
+
+    @GetMapping(path = "/all")
+    public @ResponseBody
+    Iterable<Customer> getAllUsers() {
+        return customerService.getAllUsers();
     }
+
+    @GetMapping(path = "/{username}")
+    public @ResponseBody
+    Customer getUser(@PathVariable String username) {
+        return customerService.getUser(username);
+    }
+
 
 }
